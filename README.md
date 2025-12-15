@@ -45,7 +45,7 @@ The project showcases end-to-end development skills: designing a REST API, model
 
 ## Project Structure
 
-```text
+
 Food_Delivery_App/
 ├── backend/
 │   ├── config/             # Database connection
@@ -78,13 +78,17 @@ You need Node.js >= 18, npm, and a running MongoDB instance. For a cloud databas
 
 ### Clone the repository
 
-```bash
+
 git clone https://github.com/rodriberdo96/Food_Delivery_App.git
 cd Food_Delivery_App
 
 
 
-Configure environment variables
+
+
+
+
+###Configure environment variables
 
 Create a .env file inside the backend folder with the following keys:
 
@@ -99,11 +103,11 @@ JWT_SECRET: secret key used to sign JWTs.
 
 STRIPE_SECRET_KEY: your Stripe secret key (use a test key in development).
 
-Install backend dependencies
+###Install backend dependencies
 cd backend
 npm install
 
-Run the backend server
+###Run the backend server
 npm start
 # or
 node server.js
@@ -113,11 +117,11 @@ The server will listen on:
 
 http://localhost:4000
 
-#Install frontend dependencies
+###Install frontend dependencies
 cd frontend
 npm install
 
-#Run the frontend in development mode
+###Run the frontend in development mode
 npm run dev
 
 
@@ -158,6 +162,7 @@ The codebase is modular; feel free to add features (ratings, search, filtering) 
 
 ##Author
 
-#Rodrigo Berdomas — Full-stack developer. This project demonstrates my ability to design, build and document a complete web application from scratch, integrating backend services, secure authentication, payment processing, and a responsive frontend. Feel free to contact me via my GitHub profile for questions, feedback, or collaboration opportunities.
+###Rodrigo Berdomas — Full-stack developer. This project demonstrates my ability to design, build and document a complete web application from scratch, integrating backend services, secure authentication, payment processing, and a responsive frontend. Feel free to contact me via my GitHub profile for questions, feedback, or collaboration opportunities.
+
 
 
