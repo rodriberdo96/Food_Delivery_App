@@ -88,7 +88,7 @@ cd Food_Delivery_App
 
 
 
-###Configure environment variables
+### Configure environment variables
 
 Create a .env file inside the backend folder with the following keys:
 
@@ -103,13 +103,13 @@ JWT_SECRET: secret key used to sign JWTs.
 
 STRIPE_SECRET_KEY: your Stripe secret key (use a test key in development).
 
-###Install backend dependencies
+### Install backend dependencies
 cd backend
 npm install
 
 ###Run the backend server
 npm start
-# or
+or
 node server.js
 
 
@@ -117,11 +117,11 @@ The server will listen on:
 
 http://localhost:4000
 
-###Install frontend dependencies
+### Install frontend dependencies
 cd frontend
 npm install
 
-###Run the frontend in development mode
+### Run the frontend in development mode
 npm run dev
 
 
@@ -132,7 +132,7 @@ http://localhost:5174
 
 Ensure the backend is running so the API calls work correctly.
 
-##API Overview
+## API Overview
 
 Below is a summary of the main API endpoints (all prefixed with /api):
 
@@ -160,9 +160,10 @@ Always work with test keys for Stripe and MongoDB Atlas during development. Rota
 
 The codebase is modular; feel free to add features (ratings, search, filtering) or improve styling.
 
-##Author
+## Author
 
-###Rodrigo Berdomas — Full-stack developer. This project demonstrates my ability to design, build and document a complete web application from scratch, integrating backend services, secure authentication, payment processing, and a responsive frontend. Feel free to contact me via my GitHub profile for questions, feedback, or collaboration opportunities.
+### Rodrigo Berdomas — Full-stack developer. This project demonstrates my ability to design, build and document a complete web application from scratch, integrating backend services, secure authentication, payment processing, and a responsive frontend. Feel free to contact me via my GitHub profile for questions, feedback, or collaboration opportunities.
+
 
 
 
