@@ -6,6 +6,12 @@ Food Delivery App is a full-stack web application built as a personal project to
 
 The project showcases end-to-end development skills: designing a REST API, modelling data with MongoDB, implementing authentication and payment flows, and building a responsive user interface with React. It’s a complete proof of concept of an e-commerce-style app, demonstrating proficiency across the JavaScript/TypeScript ecosystem.
 
+## Live Demo
+
+Frontend: https://fooddelapprodri.netlify.app/
+Backend API: https://food-delivery-app-eo8x.onrender.com
+
+
 ---
 
 ## Key Features
@@ -163,6 +169,7 @@ The codebase is modular; feel free to add features (ratings, search, filtering) 
 ## Author
 
 ### Rodrigo Berdomas — Full-stack developer. This project demonstrates my ability to design, build and document a complete web application from scratch, integrating backend services, secure authentication, payment processing, and a responsive frontend. Feel free to contact me via my GitHub profile for questions, feedback, or collaboration opportunities.
+
 
 
 
