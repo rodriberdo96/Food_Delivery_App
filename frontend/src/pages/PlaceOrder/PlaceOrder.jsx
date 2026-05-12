@@ -34,12 +34,10 @@ export const PlaceOrder = () => {
 
   const placeOrder = async (e) => {
     e.preventDefault();
-    let orderItems = [];
-    food_list.map((item)=>{
-      if (cartItems[item._id]>0){
-        let itemInfo = item;
-        itemInfo["quantity"] = cartItems[item._id];
-        orderItems.push(itemInfo);
+    const orderItems = [];
+    food_list.forEach((item) => {
+      if (cartItems[item._id] > 0) {
+        orderItems.push({ ...item, quantity: cartItems[item._id] });
       }
     });
     const orderData = {
