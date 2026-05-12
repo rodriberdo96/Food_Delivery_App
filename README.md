@@ -96,18 +96,21 @@ cd Food_Delivery_App
 
 ### Configure environment variables
 
-Create a .env file inside the backend folder with the following keys:
+Create a .env file inside the backend folder with the following keys. You can copy backend/.env.example as a starting point:
 
-MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/food_delivery
+MONGO_URI=mongodb+srv://<username>:<password>@<cluster-host>/<database-name>?retryWrites=true&w=majority
 JWT_SECRET=your_jwt_secret_key
 STRIPE_SECRET_KEY=sk_test_...
+FRONTEND_URL=http://localhost:5173
 
 
-MONGO_URI: your MongoDB connection string (local or Atlas).
+MONGO_URI: your MongoDB connection string (local or Atlas). On Render, copy the exact connection string from MongoDB Atlas. If Render logs a DNS SRV error like querySrv ENOTFOUND for _mongodb._tcp..., verify the cluster hostname and, if needed, use Atlas' non-SRV mongodb:// connection string instead of mongodb+srv://.
 
 JWT_SECRET: secret key used to sign JWTs.
 
 STRIPE_SECRET_KEY: your Stripe secret key (use a test key in development).
+
+FRONTEND_URL: the public customer frontend URL used by Stripe redirects.
 
 ### Install backend dependencies
 cd backend
