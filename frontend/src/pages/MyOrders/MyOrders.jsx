@@ -11,12 +11,14 @@ const MyOrders = () => {
     const {url, token} = React.useContext(StoreContext);
 
     const fetchOrders = async () => {
-        const response = await axios.post()(`${url}/api/order/myorders`, {}, {
+        const response = await axios.post(`${url}/api/order/userorders`, {}, {
             headers: {
                 token
             }
         });
-        setData(response.data.data);
+        if (response.data.success) {
+            setData(response.data.data);
+        }
     };
 
     useEffect(() => {

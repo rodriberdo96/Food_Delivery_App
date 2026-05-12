@@ -1,19 +1,22 @@
 import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
-    const {token} = req.headers;
-    if(!token){
-        return res.json({success:false, message:"Unauthorized Access"})
+    const authHeader = req.headers.authorization;
+    const token = req.headers.token || (authHeader?.startsWith("Bearer ") ? authHeader.split(" ")[1] : null);
+
+    if (!token) {
+        return res.status(401).json({ success: false, message: "Unauthorized Access" });
     }
+
     try {
-        const token_decode = jwt.verify(token, process.env.JWT_SECRET);
-        req.body.userId= token_decode.id;
+        const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
+        req.userId = tokenDecode.id;
+        req.body.userId = tokenDecode.id;
         next();
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
-        return res.json({success:false, message:"Unauthorized Access"})
+        return res.status(401).json({ success: false, message: "Unauthorized Access" });
     }
-}
+};
 
 export default authMiddleware;

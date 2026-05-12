@@ -1,4 +1,3 @@
-import userSchema from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import validator from "validator";
@@ -9,7 +8,12 @@ import userModel from "../models/userModel.js";
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
     try {
-        const user = await userModel.findOne({email})
+        if (!email || !password) {
+            return res.status(400).json({ success:false, message: "Email and password are required" });
+        }
+
+        const normalizedEmail = email.trim().toLowerCase();
+        const user = await userModel.findOne({email: normalizedEmail})
         if (!user) {
             return res.json({ success:false, message: "User does not exist" });
         }
@@ -41,13 +45,19 @@ const createToken = (id) => {
 const registerUser = async (req, res) => {
     const { name, email, password } = req.body;
     try {
+        if (!name || !email || !password) {
+            return res.status(400).json({ success:false, message: "Name, email, and password are required" });
+        }
+
+        const normalizedEmail = email.trim().toLowerCase();
+
         // checking if user already exists
-        const exists = await userModel.findOne({ email });
+        const exists = await userModel.findOne({ email: normalizedEmail });
         if (exists) {
             return res.json({ success:false, message: "User already exists" });
         }
         // validating email format and strong password
-        if (!validator.isEmail(email)) {
+        if (!validator.isEmail(normalizedEmail)) {
             return res.json({ success:false, message: "Invalid email format" });
         }
         if (password.length<8) {
@@ -58,8 +68,8 @@ const registerUser = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, salt);
         // creating new user
         const newUser = new userModel({ 
-            name:name,
-            email:email,
+            name:name.trim(),
+            email:normalizedEmail,
             password:hashedPassword
             });
 
