@@ -1,12 +1,10 @@
 import userModel from "../models/userModel.js";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 
 // add items to user cart
-
 const addToCart = async (req, res) => {
     try {
-        const { userId, itemId } = req.body;
+        const userId = req.userId || req.body.userId;
+        const { itemId } = req.body;
 
         if (!userId || !itemId) {
             return res.status(400).json({ success: false, message: "Missing userId or itemId" });
@@ -17,7 +15,7 @@ const addToCart = async (req, res) => {
             return res.status(404).json({ success: false, message: "User not found" });
         }
 
-        const cart = user.cartData;
+        const cart = user.cartData || [];
         const index = cart.findIndex(item => item.itemId === itemId);
 
         if (index !== -1) {
@@ -36,17 +34,20 @@ const addToCart = async (req, res) => {
     }
 };
 
-
-
-//remove items from user cart
+// remove items from user cart
 const removeFromCart = async (req, res) => {
     try {
-        const { userId, itemId } = req.body;
+        const userId = req.userId || req.body.userId;
+        const { itemId } = req.body;
+
+        if (!userId || !itemId) {
+            return res.status(400).json({ success: false, message: "Missing userId or itemId" });
+        }
 
         const user = await userModel.findById(userId);
         if (!user) return res.status(404).json({ success: false, message: "User not found" });
 
-        const cart = user.cartData;
+        const cart = user.cartData || [];
         const index = cart.findIndex(item => item.itemId === itemId);
 
         if (index === -1) {
@@ -56,7 +57,7 @@ const removeFromCart = async (req, res) => {
         if (cart[index].quantity > 1) {
             cart[index].quantity -= 1;
         } else {
-            cart.splice(index, 1); // remove item completely
+            cart.splice(index, 1);
         }
 
         user.cartData = cart;
@@ -69,22 +70,23 @@ const removeFromCart = async (req, res) => {
     }
 };
 
-
 // fetch user cart items
 const getCart = async (req, res) => {
     try {
-        const { userId } = req.body;
+        const userId = req.userId || req.body.userId;
+
+        if (!userId) {
+            return res.status(400).json({ success: false, message: "Missing userId" });
+        }
 
         const user = await userModel.findById(userId);
         if (!user) return res.status(404).json({ success: false, message: "User not found" });
 
-        res.json({ success: true, data: user.cartData });
+        res.json({ success: true, data: user.cartData || [] });
     } catch (error) {
         console.error("Get cart error:", error);
         res.status(500).json({ success: false, message: "Server error" });
     }
 };
 
-
-
-export {addToCart, removeFromCart, getCart}
+export { addToCart, removeFromCart, getCart };
