@@ -13,11 +13,16 @@ export const Verify = () => {
     const navigate = useNavigate();
 
     const verifyPayment = async () => {
-        const response = await axios.post(`${url}/api/order/verify`, {success, orderId });
-        if (response.data.success){
-            navigate('/myorders');
-        }
-        else {
+        try {
+            const response = await axios.post(`${url}/api/order/verify`, {success, orderId });
+            if (response.data.success){
+                navigate('/myorders');
+            }
+            else {
+                navigate('/');
+            }
+        } catch (err) {
+            console.error('Verify payment error:', err);
             navigate('/');
         }
     };
@@ -27,12 +32,10 @@ export const Verify = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
   return (
     <div className='verify'>
-        <div className="spinner">
-
-        </div>
+        <div className="spinner"></div>
+        <p>Verifying payment status, please do not close this window...</p>
     </div>
   )
 }

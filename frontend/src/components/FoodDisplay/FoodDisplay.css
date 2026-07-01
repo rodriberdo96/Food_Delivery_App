@@ -1,17 +1,113 @@
-.food-display{
-    margin-top: 30px;
+/* ═══════════════════════════════════
+   FoodDisplay — Grid & States
+   ═══════════════════════════════════ */
+
+.food-display {
+  padding: var(--space-xl) 0 var(--space-3xl);
 }
 
-.food-display h2{
-    font-size: max(2vw,24px);
-    font-weight: 600;
+.food-display__title {
+  font-family: var(--font-heading);
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xl);
 }
 
-.food-display-list{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    margin-top: 30px;
-    gap: 30px;
-    row-gap: 50px;
+.food-display__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-xl);
 }
 
+/* ─── Skeleton Loading ─── */
+.food-skeleton {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border-muted);
+  animation: fadeIn 0.5s ease both;
+}
+
+.food-skeleton__image {
+  width: 100%;
+  height: 180px;
+}
+
+.food-skeleton__info {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.food-skeleton__title {
+  height: 20px;
+  width: 70%;
+}
+
+.food-skeleton__desc {
+  height: 14px;
+  width: 100%;
+}
+
+.food-skeleton__price {
+  height: 22px;
+  width: 40%;
+  margin-top: var(--space-sm);
+}
+
+/* ─── Error State ─── */
+.food-display__error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-3xl) var(--space-lg);
+  text-align: center;
+  animation: fadeInUp 0.5s ease;
+}
+
+.food-display__error-icon {
+  font-size: 48px;
+  margin-bottom: var(--space-sm);
+}
+
+.food-display__error h3 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  color: var(--text-primary);
+}
+
+.food-display__error p {
+  color: var(--text-secondary);
+  max-width: 400px;
+}
+
+/* ─── Empty State ─── */
+.food-display__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-3xl) 0;
+  color: var(--text-secondary);
+  animation: fadeIn 0.5s ease;
+}
+
+.food-display__empty-icon {
+  font-size: 48px;
+}
+
+.food-display__empty p {
+  font-size: 16px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 600px) {
+  .food-display__grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-md);
+  }
+}

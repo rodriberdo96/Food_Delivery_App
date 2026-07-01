@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState, useCallback } from 'react'
 
 const StoreContext = createContext(null)
 
@@ -8,6 +8,8 @@ const StoreContextProvider = (props) => {
   const url = import.meta.env.VITE_API_URL || 'http://localhost:4000'
   const [token, setToken] = useState('')
   const [food_list, setFoodList] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   const addToCart = async (itemId) => {
     setCartItems((prev) => {
@@ -56,10 +58,33 @@ const StoreContextProvider = (props) => {
     return totalAmount
   }
 
-  const fetchFoodList = async () => {
-    const response = await axios.get(`${url}/api/food/list`)
-    setFoodList(response.data.data)
+  const getCartItemCount = () => {
+    let count = 0
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) {
+        count += cartItems[item]
+      }
+    }
+    return count
   }
+
+  const fetchFoodList = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+    try {
+      const response = await axios.get(`${url}/api/food/list`)
+      if (response.data.success) {
+        setFoodList(response.data.data)
+      } else {
+        setError('Failed to load menu items')
+      }
+    } catch (err) {
+      console.error('Failed to fetch food list:', err)
+      setError('Could not connect to server. Please try again later.')
+    } finally {
+      setLoading(false)
+    }
+  }, [url])
 
   const loadCartData = async (authToken) => {
     try {
@@ -100,9 +125,13 @@ const StoreContextProvider = (props) => {
     addToCart,
     removeFromCart,
     getTotalCartAmount,
+    getCartItemCount,
     url,
     token,
     setToken,
+    loading,
+    error,
+    fetchFoodList,
   }
 
   return (
